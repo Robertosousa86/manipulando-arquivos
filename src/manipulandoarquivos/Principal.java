@@ -1,25 +1,32 @@
 package manipulandoarquivos;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.File;
+import java.util.Scanner;
 
 public class Principal {
 
 	public static void main(String[] args) {
 
-		String[] lines = new String[] { "Juba", "Leona", "Beto" };
+		Scanner sc = new Scanner(System.in);
 
-		String path = "c:\\temp\\out.txt";
+		System.out.print("Digite o caminho da pasta: ");
+		String strAtalho = sc.nextLine();
 
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-			for (String line : lines) {
-				bw.write(line);
-				bw.newLine();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		File atalho = new File(strAtalho);
+
+		File[] pastas = atalho.listFiles(File::isDirectory);
+		System.out.println("PASTAS: ");
+		for (File pasta : pastas) {
+			System.out.println(pasta);
 		}
 
+		File[] arquivos = atalho.listFiles(File::isFile);
+		System.out.println("ARQUIVOS: ");
+		for (File arquivo : arquivos) {
+			System.out.println(arquivo);
+		}
+
+
+		sc.close();
 	}
 }
